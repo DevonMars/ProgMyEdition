@@ -35,6 +35,29 @@ router.post("/add?", function(req, res, next){
     })
 })
 
+router.delete("/:number", function(req, res, next){
+  var number = parseInt(req.params.number) || 0;
+  database.query('SELECT * FROM country', function(error, rows, fields){
+      if(error)
+          res.status(400).json(error);
+      else{
+          var country = rows[number].Name;
+          database.query(
+              'DELETE FROM country WHERE Name=?',
+              [country],
+              function(error, rows, fields){
+                if(error)
+                    res.status(400).json(error);
+                else{
+                    res.status(200);
+                    res.contentType('application/json');
+                    res.json({"msg" : "country succesfully deleted"});
+                }
+          })
+      }
+  })
+})
+
 router.get("*", function(req, res, next){
   database.query('SELECT * FROM country;', function(error, rows, fields){
       if(error)
