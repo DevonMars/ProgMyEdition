@@ -6,7 +6,7 @@ var database = require('../../mysql');
 
 router.get("/:number", function(req, res, next) {
     var number = parseInt(req.params.number) - 1 || 0;
-    database.query('SELECT * FROM country', function(error, rows, fields){
+    database.query('SELECT * FROM country;', function(error, rows, fields){
             if(error)
                 res.status(400).json(error);
             else {
@@ -18,7 +18,15 @@ router.get("/:number", function(req, res, next) {
 })
 
 router.get("*", function(req, res, next){
-  database.query()
+  database.query('SELECT * FROM country;', function(error, rows, fields){
+      if(error)
+          res.status(400).json(error);
+      else {
+          res.status(200);
+          res.contentType('application/json');
+          res.json(rows);
+      }
+  })
 })
 
 module.exports = router;
