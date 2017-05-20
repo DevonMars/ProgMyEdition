@@ -4,6 +4,8 @@ var config = require('./config.json');
 
 var app = express();
 
+app.set('PORT', config.PORT);
+
 app.all('*', function(req, res, next){
     console.log(req.method + " " + req.url);
     next();
