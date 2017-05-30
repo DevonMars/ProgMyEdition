@@ -7,6 +7,8 @@ var mysql = require('../mysql')
 router.use("/countries", require('./api1/routes_countries'));
 router.use('/city', require('./api1/routes_cities'));
 
+
+
 //
 // router.post('/city', function (req, res) {
 //     var city = req.body;

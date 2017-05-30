@@ -1,19 +1,18 @@
 var express = require('express');
 var router = express.Router();
+var config = require('../../config.json');
 var path = require('path');
-var config = require('../../config');
 var mysql = require('../../mysql')
 
 
-router.get('/:ID', function (req, res) {
-    var ID = parseInt(-1 || 0);
-    res.contentType('application/json');
+router.get("/:ID", function (req, res, next) {
+    var ID = parseInt(req.params.ID) - 1 || 0;
 
-    mysql.query('SELECT * FROM `city`', function (error, rows, fields) {
-        if (error){
+    mysql.query('SELECT * FROM city', function (error, rows, fields) {
+        if (error)
             res.status(400).json(error);
-        } else {
-            res.status(200).json(rows);
+        else {
+            res.status(200).json
             res.contentType('application/json');
             res.json(rows[ID]);
         };
