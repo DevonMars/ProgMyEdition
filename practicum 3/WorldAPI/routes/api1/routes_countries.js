@@ -58,6 +58,26 @@ router.delete("/:number", function(req, res, next){
   })
 })
 
+router.put("/update?", function(req, res, next){
+    var countryCode = req.get('code') || 0;
+    var name = req.get("name") || 0;
+    var continent = req.get("continent") || 0;
+    console.log(countryCode + ", " + name + ", " + continent);
+
+    database.query(
+        'UPDATE country SET name=?, continent=? where code=?;',
+        [name, continent, countryCode],
+        function(error, rows, fields){
+            if(error)
+                res.status(400).json(error);
+            else{
+                res.status(200);
+                res.contentType('application/json');
+                res.json({"msg":"record updated succesfully"});
+            }
+        })
+})
+
 router.get("*", function(req, res, next){
   database.query('SELECT * FROM country;', function(error, rows, fields){
       if(error)
