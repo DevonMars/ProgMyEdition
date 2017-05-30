@@ -7,22 +7,6 @@ var mysql = require('../mysql')
 router.use("/countries", require('./api1/routes_countries'));
 router.use('/city', require('./api1/routes_cities'));
 
-
-
-router.get('/city/:ID', function (req, res) {
-    var ID = req.params.ID;
-    res.contentType('application/json');
-
-    mysql.query('SELECT * FROM `city` WHERE `ID` = ?' ['ID'], function (error, rows, fields) {
-        if (error){
-            res.status(400).json(error);
-        } else {
-            res.status(200).json(rows);
-        };
-
-    });
-
-});
 //
 // router.post('/city', function (req, res) {
 //     var city = req.body;

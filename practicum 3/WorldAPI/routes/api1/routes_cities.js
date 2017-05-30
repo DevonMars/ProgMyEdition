@@ -4,6 +4,24 @@ var path = require('path');
 var config = require('../../config');
 var mysql = require('../../mysql')
 
+
+router.get('/:ID', function (req, res) {
+    var ID = parseInt(-1 || 0);
+    res.contentType('application/json');
+
+    mysql.query('SELECT * FROM `city`', function (error, rows, fields) {
+        if (error){
+            res.status(400).json(error);
+        } else {
+            res.status(200).json(rows);
+            res.contentType('application/json');
+            res.json(rows[ID]);
+        };
+
+    });
+
+});
+
 router.get('*', function (req, res) {
     res.contentType('application/json');
 
