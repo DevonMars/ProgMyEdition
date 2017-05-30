@@ -12,17 +12,15 @@ router.get("/search?", function(req, res, next){
     var continent = req.query.continent;
     var amount = parseInt(req.query.amount);
     database.query(
-        "SELECT * FROM country WHERE continent=?",
-        [continent],
+        "SELECT * FROM country WHERE continent=? LIMIT ?",
+        [continent, amount],
         function(error, rows, fields) {
             if (error)
                 res.status(400).json(error);
             else{
                 res.status(200);
                 res.contentType("application/json");
-                for(var i = 0; i < amount; i++) {
-                    res.json(rows[i]);
-                }
+                res.json(rows);
             }
         }
     )
