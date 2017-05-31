@@ -21,6 +21,8 @@ router.get("/:ID", function (req, res, next) {
 
 });
 
+
+
 router.get('*', function (req, res) {
     res.contentType('application/json');
 
@@ -33,6 +35,24 @@ router.get('*', function (req, res) {
 
     });
 
+});
+
+router.post("/add", function(req, res, next){
+    var cid = 4080;
+    var name = 'KONOHAGAKURE';
+    var district = 'Uchiha District';
+    mysql.query(
+        'INSERT INTO city (ID, Name, District) VALUES(?, ?, ?)',
+        [cid,name, district],
+        function(error, rows, fields){
+            if(error)
+                res.status(400).json(error);
+            else {
+                res.status(200);
+                res.contentType('application/json');
+                res.json({"msg" : "city succesfully added"});
+            };
+        });
 });
 
 module.exports = router;
